@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import styled from "styled-components";
+import DataContext from "./DataContext";
+import Chart from "./components/Chart";
 
-function App() {
+const App = () => {
+  // use context
+  const { data } = useContext(DataContext);
+  const { loading } = data;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <h1>Bitcoin Cryptocurrency Price</h1>
+      {!loading ? (
+        <div>
+          <Chart />
+          <h3>
+            Data obtained from
+            <a href="https://messari.io/" target="_blank" rel="noreferrer">
+              <span> Messari.io </span>
+            </a>
+          </h3>
+        </div>
+      ) : (
+        <h3>Loading...</h3>
+      )}
+    </AppContainer>
   );
-}
+};
+
+const AppContainer = styled.div`
+  font-family: "Poppins", sans-serif;
+  margin: 2em 5%;
+  h1,
+  h3 {
+    text-align: center;
+  }
+  h3 {
+    margin-top: 2em;
+  }
+  a {
+    text-decoration: none;
+    color: #004888;
+  }
+`;
 
 export default App;
